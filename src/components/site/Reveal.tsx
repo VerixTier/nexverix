@@ -16,14 +16,14 @@ export function Reveal({ children, as: Tag = "div", delay = 0, className }: Reve
     if (!el) return;
     el.setAttribute("data-reveal", "");
     if (typeof IntersectionObserver === "undefined") {
-      el.dataset.visible = "true";
+      el.dataset["visible"] = "true";
       return;
     }
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            (entry.target as HTMLElement).dataset.visible = "true";
+            (entry.target as HTMLElement).dataset["visible"] = "true";
             io.unobserve(entry.target);
           }
         }

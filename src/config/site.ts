@@ -14,7 +14,7 @@ export const siteConfig = {
    * Production domain. Set VITE_SITE_URL (e.g. https://www.your-domain.com) once a domain is live.
    * When empty, canonical links stay relative and the sitemap uses the current request host.
    */
-  url: (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, "") ?? "",
+  url: (import.meta.env["VITE_SITE_URL"] as string | undefined)?.replace(/\/$/, "") ?? "",
   contact: {
     /** Public business email — leave null until a verified inbox exists. */
     email: null as string | null,

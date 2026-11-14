@@ -12,7 +12,7 @@ interface SectionHeadingProps {
   action?: ReactNode;
 }
 
-export function Eyebrow({ children, index }: { children: ReactNode; index?: string }) {
+export function Eyebrow({ children, index }: { children: ReactNode; index?: string | undefined }) {
   return (
     <span className="eyebrow">
       {index && <span className="text-muted-foreground">{index}</span>}
