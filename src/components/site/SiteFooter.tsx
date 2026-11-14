@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { mainNav, siteConfig } from "@/config/site";
@@ -74,7 +75,7 @@ export function SiteFooter() {
   );
 }
 
-function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
+function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="min-w-0">
       <h3 className="mb-4 font-mono text-[0.68rem] font-medium uppercase tracking-[0.2em] text-foreground">{title}</h3>
