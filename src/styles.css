@@ -389,3 +389,10 @@
   }
   [data-reveal] { opacity: 1; transform: none; }
 }
+
+@utility footer-link {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+  &:hover { color: var(--foreground); }
+}
