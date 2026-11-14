@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export function SolutionsExplorer() {
   const [active, setActive] = useState(0);
   const id = useId();
-  const current = solutions[active];
+  const current = solutions[active]!;
 
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
     const keys = ["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft"];
