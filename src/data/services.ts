@@ -308,4 +308,4 @@ export const availabilityLabel: Record<ServiceAvailability, string> = {
   growing: "Growing capability",
 };
 
-export const serviceOptions: [string, ...string[]] = [...services.map((s) => s.title), "Not sure yet"];
+export const serviceOptions = [services[0]!.title, ...services.slice(1).map((s) => s.title), "Not sure yet"] as [string, ...string[]];
