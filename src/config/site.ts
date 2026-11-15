@@ -17,15 +17,23 @@ export const siteConfig = {
   url: (import.meta.env["VITE_SITE_URL"] as string | undefined)?.replace(/\/$/, "") ?? "",
   contact: {
     /** Public business email — leave null until a verified inbox exists. */
-    email: null as string | null,
+    email: "mdaziz.nexverix@gmail.com" as string | null,
     /** Public phone number — leave null until verified. */
     phone: null as string | null,
     /** Business location to show publicly — leave null to hide. */
     location: null as string | null,
     responseNote: "We read every message and reply personally.",
   },
-  /** Add verified profiles only, e.g. { label: "LinkedIn", href: "https://linkedin.com/company/..." } */
-  social: [] as { label: "LinkedIn" | "GitHub" | "X" | "Instagram" | "Facebook" | "Dribbble"; href: string }[],
+  /** Add verified profiles only. Discord stays as text until an invite URL is supplied. */
+  social: [
+    { label: "GitHub", href: "https://github.com/nexverix" },
+    { label: "X", href: "https://x.com/nexverix_dev" },
+    { label: "Discord", href: null, text: "nexverix" },
+  ] as {
+    label: "LinkedIn" | "GitHub" | "X" | "Instagram" | "Facebook" | "Dribbble" | "Discord";
+    href: string | null;
+    text?: string;
+  }[],
   legal: {
     lastUpdated: "November 14, 2026",
   },
