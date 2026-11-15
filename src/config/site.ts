@@ -28,7 +28,7 @@ export const siteConfig = {
   social: [
     { label: "GitHub", href: "https://github.com/nexverix" },
     { label: "X", href: "https://x.com/nexverix_dev" },
-    { label: "Discord", href: null, text: "nexverix" },
+    { label: "Discord", href: "https://discord.gg/nUdXRTW7Be" },
   ] as {
     label: "LinkedIn" | "GitHub" | "X" | "Instagram" | "Facebook" | "Dribbble" | "Discord";
     href: string | null;
