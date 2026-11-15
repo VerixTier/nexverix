@@ -54,7 +54,13 @@ export function SiteFooter() {
                 <li className="inline-flex items-center gap-2 text-sm text-muted-foreground"><MapPin className="h-3.5 w-3.5" />{contact.location}</li>
               )}
               {social.map((s) => (
-                <li key={s.href}><a href={s.href} target="_blank" rel="noopener noreferrer" className="footer-link">{s.label}</a></li>
+                <li key={s.label}>
+                  {s.href ? (
+                    <a href={s.href} target="_blank" rel="noopener noreferrer" className="footer-link">{s.label}</a>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">{s.label}: {s.text}</span>
+                  )}
+                </li>
               ))}
               {social.length === 0 && (
                 <li className="text-sm text-muted-foreground/70">Social profiles coming soon</li>
