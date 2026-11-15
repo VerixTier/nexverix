@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Site content (services, solutions, industries, projects, technologies) lives in `src/data/*.ts` and company details in `src/config/site.ts`; pages render from these so edits happen in one place.
+- Every project must carry an honest `type` (client/internal/experiment/demo) shown as a badge; never present demo work as client work.
+- Per-route metadata goes through `pageHead()` in `src/lib/seo.ts` so title, Open Graph and canonical stay consistent.
+- Contact submissions are written server-side only (server function + admin client) after zod validation and spam checks; the table has no public read access.
+- Sitemap is deferred until a public domain exists (set `VITE_SITE_URL` first).
