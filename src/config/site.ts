@@ -17,7 +17,7 @@ export const siteConfig = {
   url: (import.meta.env["VITE_SITE_URL"] as string | undefined)?.replace(/\/$/, "") ?? "",
   contact: {
     /** Public business email — leave null until a verified inbox exists. */
-    email: "mdaziz.nexverix@gmail.com" as string | null,
+    email: "nexverix@gmail.com" as string | null,
     /** Public phone number — leave null until verified. */
     phone: null as string | null,
     /** Business location to show publicly — leave null to hide. */
