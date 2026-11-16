@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import logoAsset from "@/assets/nexverix-logo.png.asset.json";
+// import logoAsset from "@/assets/nexverix-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 export function LogoMark({ className }: { className?: string }) {
   return (
     <img
-      src={logoAsset.url}
+      src="/nexverix-logo.png"
       alt=""
       aria-hidden="true"
       width={64}
