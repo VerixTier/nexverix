@@ -2,7 +2,8 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Info } from "lucide-react";
 import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
-import { projectCategories, projects } from "@/data/projects";
+/* import { projectCategories, projects } from "@/data/projects"; */
+import { getPublishedProjects } from "@/data/projectQueries";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { ProjectCard } from "@/components/site/ProjectCard";
@@ -10,7 +11,8 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/work/")({
-  head: () => {
+  loader: () => getPublishedProjects(),
+  head: () => { 
     const h = pageHead({
       title: "Our Work",
       description: "Demonstration concepts showing the kind of websites, applications and integrations NexVerix designs and builds.",
@@ -22,9 +24,11 @@ export const Route = createFileRoute("/work/")({
 });
 
 function WorkPage() {
+  const projects = Route.useLoaderData();
+  const projectCategories = ["All", ...new Set(projects.map((p) => p.category))];
+
   const [category, setCategory] = useState("All");
   const list = category === "All" ? projects : projects.filter((p) => p.category === category);
-
   return (
     <>
       <PageHero
