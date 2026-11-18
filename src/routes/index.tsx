@@ -13,10 +13,12 @@ import { ProjectCard } from "@/components/site/ProjectCard";
 import { TechIcon } from "@/components/site/TechIcon";
 import { principles } from "@/data/content";
 import { industries } from "@/data/industries";
-import { projects } from "@/data/projects";
+/* import { projects } from "@/data/projects"; */ 
+import { getPublishedProjects } from "@/data/projectQueries";
 import { homeTechCategories } from "@/data/technologies";
 
 export const Route = createFileRoute("/")({
+  loader: () => getPublishedProjects(),
   head: () =>
     pageHead({
       title: "Engineering Digital Experiences",
@@ -37,8 +39,8 @@ function ArrowLink({ to, children }: { to: "/about" | "/work" | "/technologies" 
 }
 
 function HomePage() {
+  const projects = Route.useLoaderData();
   const featured = projects.filter((p) => p.featured).slice(0, 3);
-
   return (
     <>
       <Hero />
@@ -195,7 +197,7 @@ function HomePage() {
           <Reveal>
             <p className="flex items-start gap-2.5 rounded-2xl border border-warning/30 bg-background/60 px-4 py-3 text-sm text-muted-foreground">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
-              The projects below are demonstration concepts that illustrate the kind of work NexVerix can deliver. They are not client engagements.
+              Each project is labelled honestly to distinguish demonstration concepts from internal builds and client work.
             </p>
           </Reveal>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
