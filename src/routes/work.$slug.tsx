@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound, useRouter, type ErrorComponentProps } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Info } from "lucide-react";
 import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
-import { getProject, projects } from "@/data/projects";
+/* import { getProject, projects } from "@/data/projects"; */ 
+import { getPublishedProject, getPublishedProjects } from "@/data/projectQueries"; 
 import { findTech } from "@/data/technologies";
 import { Eyebrow } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
@@ -11,11 +12,20 @@ import { CtaSection } from "@/components/site/CtaSection";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/work/$slug")({
-  loader: ({ params }) => {
+ /* loader: ({ params }) => {
     const project = getProject(params.slug);
     if (!project) throw notFound();
     return { project };
-  },
+  }, */
+  loader: async ({ params }) => {
+  const [project, projects] = await Promise.all([
+    getPublishedProject(params.slug),
+    getPublishedProjects(),
+  ]);
+  if (!project) throw notFound();
+  return { project, projects };
+},
+  
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return pageHead({ title: "Project not found", description: "This project could not be found.", path: `/work/${params.slug}`, noindex: true });
@@ -60,10 +70,9 @@ function ProjectError({ error, reset }: ErrorComponentProps) {
 }
 
 function ProjectPage() {
-  const { project: p } = Route.useLoaderData();
+  const { project: p, projects } = Route.useLoaderData();
   const idx = projects.findIndex((x) => x.slug === p.slug);
-  const next = projects[(idx + 1) % projects.length]!;
-
+  const next = projects.length > 1 ? projects[(idx + 1) % projects.length] : undefined;
   return (
     <>
       <section className="relative overflow-hidden border-b border-border pt-28 pb-12 md:pt-36 md:pb-16">
@@ -156,17 +165,19 @@ function ProjectPage() {
         </div>
       </section>
 
-      <section className="border-t border-border">
-        <div className="container-x py-10">
-          <Link to="/work/$slug" params={{ slug: next.slug }} className="group flex items-center justify-between gap-6">
-            <span className="flex flex-col gap-1">
-              <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">Next project</span>
-              <span className="font-display text-2xl font-bold text-foreground md:text-3xl">{next.title}</span>
-            </span>
-            <ArrowRight className="h-6 w-6 shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-        </div>
-      </section>
+    {next && (
+  <section className="border-t border-border">
+    <div className="container-x py-10">
+      <Link to="/work/$slug" params={{ slug: next.slug }} className="group flex items-center justify-between gap-6">
+        <span className="flex flex-col gap-1">
+          <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">Next project</span>
+          <span className="font-display text-2xl font-bold text-foreground md:text-3xl">{next.title}</span>
+        </span>
+        <ArrowRight className="h-6 w-6 shrink-0 text-primary transition-transform duration-300 group-hover:translate-x-1" />
+      </Link>
+    </div>
+  </section>
+)}
 
       <CtaSection title="Want something like this for your business?" secondaryLabel="View All Work" secondaryTo="/work" />
     </>
